@@ -1,22 +1,42 @@
-import java.util.ArrayList;
 /**
  * Class representing a point in a quadrant.  The x- and y-coordinates in the point
  * are integers.  A point can be moved up, down, left and right and you can inquire about
  * the quadrant the point is in.
  */
 public class Point {
+	/**
+	 * Maximum value for both the x- and y-coordinates of an instance of point.
+	 */
     public static final int MAX = 100;
+    
+    /**
+     * Minimum value for both the x- and y-coordinates of an instance of point.
+     */
     public static final int MIN = -100;
     
-    int xcoord ;
+    int xcoord;
     int ycoord = 0;
 	
+    /**
+     * Create a default Point at location (0,0).
+     */
     public Point(){}
 
+    /**
+     * Create a new point using the values specified by the parameters for the 
+     * x- and y-coordinates.
+     * @param x the value for the x-coordinate of this new point.
+     * @param y the value of the y-coordinate of this new point.
+     */
     public Point(int x, int y){
         setXCoord(x);
         setYCoord(y);
     }
+    
+    /**
+     * Creates a duplicate of the point provided as an argument.
+     * @param toCopy the point to copy
+     */
     public Point(Point toCopy){
         xcoord = toCopy.xcoord;
         ycoord = toCopy.ycoord;
