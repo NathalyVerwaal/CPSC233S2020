@@ -1,6 +1,5 @@
 
-public class Circle {
-	private Point centre = new Point(0,0);
+public class Circle extends Shape{
 	private int radius = 5;
 	
 	public double diameter() {
@@ -11,11 +10,7 @@ public class Circle {
 		return 2 * Math.PI * radius;
 	}
 	
-	public void moveDown(int amount){
-		centre.moveDown(amount);
-	}
-	
 	public String toString() {
-		return centre.toString() + " " + radius;
+		return getLocation().toString() + " " + radius;
 	}
 }
