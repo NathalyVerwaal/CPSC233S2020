@@ -22,6 +22,9 @@ public class WidgetDemo extends Application {
 		
 		HBox innerBox = new HBox();
 		Button b = new Button("click here");
+		MyButtonHandler handler = new MyButtonHandler();
+		handler.setMessageLabel(label1);
+        b.setOnAction(handler);
 		innerBox.getChildren().add(b);
 		
 		Rectangle rect = new Rectangle(10,20);
