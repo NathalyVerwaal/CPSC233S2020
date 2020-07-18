@@ -8,30 +8,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.MyController">
   <!-- TODO Add Nodes -->
   <bottom>
-    <Button mnemonicParsing="false" text="Click me" BorderPane.alignment="TOP_CENTER">
+    <Button fx:id="myButton" mnemonicParsing="false" onAction="#buttonClicked" text="Click me" BorderPane.alignment="TOP_CENTER">
       <BorderPane.margin>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x1" />
       </BorderPane.margin>
     </Button>
   </bottom>
   <center>
-    <Label text="Hello" textOverrun="ELLIPSIS">
+    <Label fx:id="myLabel" text="Hello" textOverrun="ELLIPSIS">
       <BorderPane.margin>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </BorderPane.margin>
     </Label>
   </center>
   <left>
-    <PieChart id="PieChart" />
+    <PieChart id="PieChart" fx:id="myPieChart" />
   </left>
   <right>
-    <TextField prefWidth="200.0" text="Enter data here" BorderPane.margin="$x1" />
+    <TextField fx:id="myTextField" onKeyTyped="#keyTyped" prefWidth="200.0" text="Enter data here" BorderPane.margin="$x1" />
   </right>
   <top>
-    <ChoiceBox BorderPane.alignment="TOP_CENTER" BorderPane.margin="$x1">
+    <ChoiceBox fx:id="myChoiceBox" BorderPane.alignment="TOP_CENTER" BorderPane.margin="$x1">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
