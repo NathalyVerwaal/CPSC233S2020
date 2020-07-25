@@ -1,5 +1,7 @@
+import javafx.event.Event;
+import javafx.event.EventHandler;
 
-public class Circle extends Shape{
+public class Circle extends Shape implements Measurable, EventHandler<Event> {
 	private int radius = 5;
 	
 	public double diameter() {
@@ -12,5 +14,16 @@ public class Circle extends Shape{
 	
 	public String toString() {
 		return getLocation().toString() + " " + radius;
+	}
+
+	@Override
+	public double getMeasure() {
+		return radius;
+	}
+
+	@Override
+	public void handle(Event event) {
+		radius++;
+		
 	}
 }

@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class BankAccount {
+public class BankAccount implements Measurable {
 	private double balance;
 	private String accountNumber;
 	
@@ -64,5 +64,10 @@ public class BankAccount {
 	
 	public String toString() {
 		return accountNumber + ": " + balance;
+	}
+
+	@Override
+	public double getMeasure() {
+		return balance;
 	}
 }
