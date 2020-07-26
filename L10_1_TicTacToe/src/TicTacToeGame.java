@@ -17,10 +17,20 @@ public class TicTacToeGame{
 			// original board, instead give a copy by using the copy
 			// constructor
 			Move move = player1.getMove(new TicTacToeBoard(board));
-			board.placeToken(player1.getToken(),move.row,move.column);
+			try {
+				board.placeToken(player1.getToken(),move.row,move.column);
+			} catch (InvalidPlacementException ipe) {
+				System.out.println("invalid move " + ipe.getMessage());
+				move = player1.getMove(new TicTacToeBoard(board));
+			}
 			// check if game is over yet before prompting second player
 			move = player2.getMove(board);
-			board.placeToken(player2.getToken(),move.row,move.column);
+			try {
+				board.placeToken(player2.getToken(),move.row,move.column);
+			} catch (InvalidPlacementException e) {
+				// TODO Auto-generated catch block
+				move = player2.getMove(new TicTacToeBoard(board));
+			}
 		}
 		
 		// check who has won

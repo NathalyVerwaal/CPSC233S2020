@@ -22,12 +22,23 @@ public class TicTacToeBoard {
 		
 	}
 	
-	public void placeToken(char token, int row, int column){
-		grid[row][column] = token;
+	public void placeToken(char token, int row, int column) throws InvalidPlacementException{
+		// is row,column on the board?
+		// is the spot at row,column empty?
+		if (grid[row][column] == '.') {
+			grid[row][column] = token;
+		} else {
+			// don't know what to do
+			// don't want player to skip their turn.
+			// I need the game to know there is a problem
+			// I need to initiate (throw) and exception
+			throw new InvalidPlacementException("Can't place token at (" + row + "," +
+						column + ". There already is a token at this location.");
+		}
 		
 	}
 	
-	public boolean isValidPlacement(int row, int column){
+	public boolean isValidPlacement(int row, int column) {
 		return grid[row][column] == '.';
 	}
 	

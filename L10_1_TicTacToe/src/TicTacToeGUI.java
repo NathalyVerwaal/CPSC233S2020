@@ -27,28 +27,32 @@ public class TicTacToeGUI extends Application {
 		public void handle(ActionEvent event){
 			// place token
 			// check if this is a valid placement
-			board.placeToken('x', row, column);
-			//gridButtons[row][column].setText("x");
-			Button b = gridButtons[row][column];
-			b.setText("x");
-			//should disable button
+			try {
+				board.placeToken('x', row, column);  // this may throw an exception
+				//gridButtons[row][column].setText("x");
+				Button b = gridButtons[row][column];
+				b.setText("x");
+				//should disable button
 			
-			// check if the game is over
-			if (board.hasWon('x')) {
-				messageLabel.setText("You won!");
-			} else {
-				// let ai take a turn
-				Move m = ai.getMove(board);
-				board.placeToken('o', m.row, m.column);
-				b = gridButtons[m.row][m.column];
-				b.setText("o");
+				// check if the game is over
+				if (board.hasWon('x')) {
+					messageLabel.setText("You won!");
+				} else {
+					// let ai take a turn
+					Move m = ai.getMove(board);
+					board.placeToken('o', m.row, m.column);
+					b = gridButtons[m.row][m.column];
+					b.setText("o");
 				
 				// should disable this button
 				
 				// check if the game is over
-				if (board.hasWon('o')) {
-					messageLabel.setText("You lost!");
+					if (board.hasWon('o')) {
+						messageLabel.setText("You lost!");
+					}
 				}
+			} catch (InvalidPlacementException ipe) {
+				messageLabel.setText("This cell already contains a token.  Please choose a different location.");
 			}
 		}
 	}
