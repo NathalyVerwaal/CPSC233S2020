@@ -45,10 +45,13 @@ public class Controller {
 
     @FXML
     void editClicked(ActionEvent event) {
-    	Student selected = students.get(studentChoiceBox.getSelectionModel().getSelectedIndex());
-    	selected.id = Integer.parseInt(idTextField.getText());
-    	selected.name = nameTextField.getText();
-    	selected.gpa = Float.parseFloat(gpaTextField.getText());
+    	int index = studentChoiceBox.getSelectionModel().getSelectedIndex();
+    	Student selected = students.get(index);
+    	Student updated = new Student();
+    	updated.id = Integer.parseInt(idTextField.getText());
+    	updated.name = nameTextField.getText();
+    	updated.gpa = Float.parseFloat(gpaTextField.getText());
+    	students.set(index,updated);
     	updateChoiceBox();
     }
 
@@ -63,27 +66,26 @@ public class Controller {
         assert idTextField != null : "fx:id=\"idTextField\" was not injected: check your FXML file 'View.fxml'.";
         assert nameTextField != null : "fx:id=\"nameTextField\" was not injected: check your FXML file 'View.fxml'.";
         assert studentChoiceBox != null : "fx:id=\"studentChoiceBox\" was not injected: check your FXML file 'View.fxml'.";
-        
+		studentChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
+				new ChangeListener<Number>() {
+					@Override
+					public void changed(ObservableValue observable, Number oldValue, Number newValue) {
+						int index = newValue.intValue(); 
+						if (index >= 0) {
+							Student selected = students.get(index);
+							idTextField.setText("" + selected.id);
+							nameTextField.setText(selected.name);
+							gpaTextField.setText("" + selected.gpa);
+						}
+					}			
+				}
+			);
+
         // TODO:  read all students from a file and place them in the choice box.
     }
 
     private void updateChoiceBox() {
     	System.out.println(students);
         studentChoiceBox.setItems(FXCollections.observableArrayList(students));
-		studentChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
-			new ChangeListener<Number>() {
-				@Override
-				public void changed(ObservableValue observable, Number oldValue, Number newValue) {
-					int index = newValue.intValue(); 
-					if (index >= 0) {
-						Student selected = students.get(index);
-						idTextField.setText("" + selected.id);
-						nameTextField.setText(selected.name);
-						gpaTextField.setText("" + selected.gpa);
-					}
-				}			
-			}
-		);
-
     }
 }
