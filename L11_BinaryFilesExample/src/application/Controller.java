@@ -1,5 +1,11 @@
 package application;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
@@ -57,7 +63,29 @@ public class Controller {
 
     @FXML
     void saveClicked(ActionEvent event) {
-    	// TODO:  save all students in the choicebox to a binary file.
+    	DataOutputStream out = null;
+    	try {
+			out = new DataOutputStream(new FileOutputStream("students.bin"));
+			out.writeInt(students.size());
+			for (Student s : students) {
+				out.writeInt(s.id);
+				out.writeUTF(s.name);
+				out.writeFloat(s.gpa);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Problem opening file for saving");
+			nameTextField.setText("Problem saving");
+		} catch (IOException e) {
+			System.out.println("Problem saving student to file");
+			nameTextField.setText("Problem saving student to file");
+		} finally {
+			try {
+				if (out != null) out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
     }
 
     @FXML
@@ -80,8 +108,37 @@ public class Controller {
 					}			
 				}
 			);
-
-        // TODO:  read all students from a file and place them in the choice box.
+		
+		getStudentData();
+		updateChoiceBox();
+    }
+    
+    private void getStudentData() {
+    	DataInputStream in = null;
+    	try {
+			in = new DataInputStream(new FileInputStream("students.bin"));
+			int size = in.readInt();
+			for (int counter = 0; counter < size; counter++) {
+				Student current = new Student();
+				current.id = in.readInt();
+				current.name = in.readUTF();
+				current.gpa = in.readFloat();
+				students.add(current);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Problem opening file for saving");
+			nameTextField.setText("Problem saving");
+		} catch (IOException e) {
+			System.out.println("Problem saving student to file");
+			nameTextField.setText("Problem saving student to file");
+		} finally {
+			try {
+				if (in != null) in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}    	
     }
 
     private void updateChoiceBox() {
